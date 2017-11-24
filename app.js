@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var cors = require('cors')
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -19,6 +19,7 @@ app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
@@ -26,14 +27,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.all('*', function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-      res.header("X-Powered-By", ' 3.2.1')
-      res.header("Content-Type", "application/json;charset=utf-8");
-      next();
-});
+// app.all('*', function(req, res, next) {
+//       res.header("Access-Control-Allow-Origin", "*");
+//       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//       res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+//       res.header("X-Powered-By", ' 3.2.1')
+//       res.header("Content-Type", "application/json;charset=utf-8");
+//       next();
+// });
 
 app.use('/', index);
 app.use('/users', users);
